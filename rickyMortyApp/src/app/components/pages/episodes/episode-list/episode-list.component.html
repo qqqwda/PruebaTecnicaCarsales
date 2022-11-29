@@ -1,5 +1,6 @@
+<input class="center-block" type="text" (keyup)="onKeypressEvent($event)" placeholder="Find some episodes!" />
+<br>
 <div class="center">
-    
     <table class="center">
         <tr>
             <th>Episode</th>
@@ -14,7 +15,13 @@
             <td>{{episode.air_date}}</td>
             <td>Details</td>
         </tr>
-        <br>
-        <input type="text" (keypress)="onKeypressEvent($event)" placeholder="Find some episodes!" />
+
     </table>
+</div>
+
+
+
+<div class="center paginator">
+    <button [hidden]="!this.prev" (click)="changePage(-1)" style='float: left;'>Previous page</button>
+    <button [hidden]="!this.next" (click)="changePage(1)" style='float: right;'>Next page</button>
 </div>

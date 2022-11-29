@@ -12,7 +12,7 @@ export class EpisodeService {
 
   constructor(private http: HttpClient) { }
 
-  getEpisodes(query='', page=1):Observable<Episode>{
+  getEpisodes(query:String='', page:number=1):Observable<Episode>{
     const filter = `${environment.baseUrlAPI}/episode/?name=${query}&page=${page}`;
     return this.http.get<Episode>(filter);
   }

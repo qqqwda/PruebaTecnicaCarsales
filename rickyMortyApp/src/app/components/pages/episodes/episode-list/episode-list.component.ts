@@ -9,19 +9,28 @@ import { EpisodeService } from 'src/app/shared/service/episode.service';
   templateUrl: './episode-list.component.html',
   styleUrls: ['./episode-list.component.css']
 })
-export class EpisodeListComponent implements OnInit, OnDestroy{
+export class EpisodeListComponent implements OnInit, OnDestroy {
 
   public episodes: EpisodeResult[] = [];
-  public subscriptions:Subscription[] = [];
+  public subscriptions: Subscription[] = [];
+  public episode: Episode | undefined;
 
-  constructor(private episodeService:EpisodeService) {
+  public next: String | undefined;
+  public prev: String | undefined;
+  public query: String | undefined;
+  public current: number = 1;
 
-   }
+  constructor(private episodeService: EpisodeService) {
 
-   ngOnInit(): void {
+  }
+
+  /**
+   * Se inicializa mostrando todos los episodios
+   */
+  ngOnInit(): void {
     /**OnInit, obtiene todos los episodios */
     this.subscriptions.push(this.episodeService.getEpisodes().subscribe(async (response: Episode) => {
-      this.episodes = response.results;
+      this.updateVariables(response);
     }));
   }
 
@@ -29,20 +38,48 @@ export class EpisodeListComponent implements OnInit, OnDestroy{
    * Actualiza los episodios onKeyPress
    * @param event 
    */
-  onKeypressEvent(event: any){
+  onKeypressEvent(event: any) {
     /**OnInit, obtiene todos los episodios */
-    this.subscriptions.push(this.episodeService.getEpisodes(event.target.value).subscribe(async (response: Episode) => {
-      this.episodes = response.results;
+    let query = event.target.value;
+    this.subscriptions.push(this.episodeService.getEpisodes(query).subscribe(async (response: Episode) => {
+      this.updateVariables(response);
     }));
- 
- }
+    this.query = query;
 
- ngOnDestroy() {
-  this.subscriptions.forEach(
-    subscription => subscription.unsubscribe()
-  );
-}
- 
-  
-  
+  }
+
+  /**
+   * OnDestroy, destruye suscripciones
+   */
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      subscription => subscription.unsubscribe()
+    );
+  }
+
+  /**
+   * Actualiza variables
+   * @param response 
+   */
+  updateVariables(response: Episode, page:number = 1): void {
+    this.episode = response;
+    this.episodes = response.results;
+
+    this.next = response.info.next;
+    this.prev = response.info.prev;
+    this.current = page;
+  }
+
+  /**
+   * Cambia página
+   */
+   changePage(page:number){
+    const newCurrent = this.current+page;
+    this.subscriptions.push(this.episodeService.getEpisodes(this.query,newCurrent).subscribe(async (response: Episode) => {
+      this.updateVariables(response, newCurrent);
+    }));
+   }
+
+
+
 }
