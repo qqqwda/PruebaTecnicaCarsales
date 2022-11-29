@@ -1,4 +1,4 @@
-# PruebaTecnicaCarsales
+# Prueba Tecnica Carsales
 
 <div>
     <h1>Technical test, implementation of Rick and Morty API</h1>
