@@ -2,7 +2,7 @@
 
 <div>
     <h1>Technical test, implementation of Rick and Morty API</h1>
-    <p>This is a simple implementation of the Rick and Morty API, you can find the documentation <a href="https://rickandmortyapi.com/documentation/#rest">here</a>.</p>
+    <p>This is a simple implementation of the Rick and Morty API, find the documentation <a href="https://rickandmortyapi.com/documentation/#rest">here</a>.</p>
     <h2>What can you do?</h2>
     <h4>Find episodes!</h4>
     <p>You can go to navigation bar an click on 'Episodes', where you can find a list of all episodes, you can navigate through episodes with a paginator and have the possibility to search an especific episode.</p>
