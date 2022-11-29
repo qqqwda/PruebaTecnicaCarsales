@@ -13,6 +13,7 @@ import { CharacterDetailComponent } from './components/pages/characters/characte
 import { HomeComponent } from './components/pages/home/home/home.component';
 
 const appRoutes:Routes =[
+  {path: '',pathMatch: 'full', redirectTo: 'home'},
   {path:'episodes', component:EpisodeListComponent},
   {path:'characters', component:CharacterListComponent},
   {path:'home', component:HomeComponent},
