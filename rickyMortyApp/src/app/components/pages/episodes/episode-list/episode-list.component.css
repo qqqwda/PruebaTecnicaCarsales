@@ -35,9 +35,10 @@ table {
     display: flex;
     justify-content: space-between;
     width: 20rem;
-  }
+}
 
 .center-block {
     margin: auto;
     display: block;
-  }
+}
+

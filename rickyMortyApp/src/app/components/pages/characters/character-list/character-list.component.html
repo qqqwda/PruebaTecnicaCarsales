@@ -1,0 +1,8 @@
+<input class="center-block" type="text" (keyup)="onKeypressEvent($event)" placeholder="Find characters!" />
+<br>
+<div class="center">
+    <div *ngFor="let character of characters;">
+        <app-character-card [item]="character"></app-character-card>
+        <br>
+    </div>
+</div>

@@ -6,16 +6,23 @@ import { EpisodeListComponent } from './components/pages/episodes/episode-list/e
 import { HeaderComponent } from './shared/components/header/header.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { CharacterListComponent } from './components/pages/characters/character-list/character-list.component';
+import { CharacterCardComponent } from './components/pages/characters/character-card/character-card.component';
+import { CharacterCardDetailComponent } from './components/pages/characters/character-card-detail/character-card-detail.component';
 
 const appRoutes:Routes =[
-  {path:'episode', component:EpisodeListComponent}
+  {path:'episodes', component:EpisodeListComponent},
+  {path:'characters', component:CharacterListComponent}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     EpisodeListComponent,
-    HeaderComponent
+    HeaderComponent,
+    CharacterListComponent,
+    CharacterCardComponent,
+    CharacterCardDetailComponent
   ],
   imports: [
     BrowserModule,

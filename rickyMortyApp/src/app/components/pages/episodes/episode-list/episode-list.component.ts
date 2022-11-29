@@ -39,7 +39,6 @@ export class EpisodeListComponent implements OnInit, OnDestroy {
    * @param event 
    */
   onKeypressEvent(event: any) {
-    /**OnInit, obtiene todos los episodios */
     let query = event.target.value;
     this.subscriptions.push(this.episodeService.getEpisodes(query).subscribe(async (response: Episode) => {
       this.updateVariables(response);
