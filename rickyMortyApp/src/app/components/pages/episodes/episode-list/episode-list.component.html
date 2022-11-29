@@ -1,0 +1,25 @@
+<input class="center-block" type="text" (keyup)="onKeypressEvent($event)" placeholder="Find an episode!" />
+<br>
+<div class="center">
+    <table class="center">
+        <tr>
+            <th>Episode</th>
+            <th>Name</th>
+            <th>Air Date</th>
+        </tr>
+
+        <tr *ngFor="let episode of episodes">
+            <td>{{episode.episode}}</td>
+            <td>{{episode.name}}</td>
+            <td>{{episode.air_date}}</td>
+        </tr>
+
+    </table>
+</div>
+
+
+
+<div class="center paginator">
+    <a disabled="!this.prev" (click)="changePage(-1)" class="previous round" style='float: left;'>&#8249;</a>
+    <a disabled="!this.next" (click)="changePage(1)" class="next round" style='float: right;'>&#8250;</a>
+</div>
