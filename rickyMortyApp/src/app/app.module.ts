@@ -9,10 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { CharacterListComponent } from './components/pages/characters/character-list/character-list.component';
 import { CharacterCardComponent } from './components/pages/characters/character-card/character-card.component';
 import { CharacterCardDetailComponent } from './components/pages/characters/character-card-detail/character-card-detail.component';
+import { CharacterDetailComponent } from './components/pages/characters/character-detail/character-detail.component';
+import { HomeComponent } from './components/pages/home/home/home.component';
 
 const appRoutes:Routes =[
   {path:'episodes', component:EpisodeListComponent},
-  {path:'characters', component:CharacterListComponent}
+  {path:'characters', component:CharacterListComponent},
+  {path:'home', component:HomeComponent},
+  { path: 'characters/:id', component: CharacterDetailComponent }
 ]
 
 @NgModule({
@@ -22,7 +26,9 @@ const appRoutes:Routes =[
     HeaderComponent,
     CharacterListComponent,
     CharacterCardComponent,
-    CharacterCardDetailComponent
+    CharacterCardDetailComponent,
+    CharacterDetailComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

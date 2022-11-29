@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CharacterResult } from 'src/app/shared/models/Character';
 
 @Component({
   selector: 'app-character-card-detail',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./character-card-detail.component.css']
 })
 export class CharacterCardDetailComponent {
+
+  @Input()
+  item!: CharacterResult;
 
 }

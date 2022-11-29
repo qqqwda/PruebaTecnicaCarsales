@@ -1,4 +1,4 @@
-<input class="center-block" type="text" (keyup)="onKeypressEvent($event)" placeholder="Find some episodes!" />
+<input class="center-block" type="text" (keyup)="onKeypressEvent($event)" placeholder="Find an episode!" />
 <br>
 <div class="center">
     <table class="center">
@@ -6,14 +6,12 @@
             <th>Episode</th>
             <th>Name</th>
             <th>Air Date</th>
-            <th>Detail</th>
         </tr>
 
         <tr *ngFor="let episode of episodes">
             <td>{{episode.episode}}</td>
             <td>{{episode.name}}</td>
             <td>{{episode.air_date}}</td>
-            <td>Details</td>
         </tr>
 
     </table>
@@ -22,6 +20,6 @@
 
 
 <div class="center paginator">
-    <button [hidden]="!this.prev" (click)="changePage(-1)" style='float: left;'>Previous page</button>
-    <button [hidden]="!this.next" (click)="changePage(1)" style='float: right;'>Next page</button>
+    <a disabled="!this.prev" (click)="changePage(-1)" class="previous round" style='float: left;'>&#8249;</a>
+    <a disabled="!this.next" (click)="changePage(1)" class="next round" style='float: right;'>&#8250;</a>
 </div>

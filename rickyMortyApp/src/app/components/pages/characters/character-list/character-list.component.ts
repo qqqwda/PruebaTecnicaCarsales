@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Character, CharacterResult } from 'src/app/shared/models/Character';
 import { CharacterService } from 'src/app/shared/service/character.service';
@@ -8,20 +8,26 @@ import { CharacterService } from 'src/app/shared/service/character.service';
   templateUrl: './character-list.component.html',
   styleUrls: ['./character-list.component.css']
 })
-export class CharacterListComponent implements OnInit, OnDestroy{
-   subscriptions: Subscription[] = [];
-   public characters: CharacterResult[] = [];
+export class CharacterListComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
+  public characters: CharacterResult[] = [];
+  public elements = [1];
 
-   constructor(private characterService: CharacterService) {
+  public page: number = 1;
+  public query: string = '';
+  public pagesAvailables:number = 1;
+
+  constructor(private characterService: CharacterService) {
 
   }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   ngOnInit(): void {
     this.subscriptions.push(this.characterService.getCharacters().subscribe(async (response: Character) => {
+      this.pagesAvailables = response.info.pages;
       this.characters = response.results;
     }));
   }
@@ -30,15 +36,33 @@ export class CharacterListComponent implements OnInit, OnDestroy{
    * Actualiza los personajes onKeyPress
    * @param event 
    */
-   onKeypressEvent(event: any) {
-    
-     let query = event.target.value;
-     console.log(query);
-    this.subscriptions.push(this.characterService.getCharacters(query).subscribe(async (response: Character) => {
-      //this.updateVariables(response);
+  onKeypressEvent(event: any) {
+
+    this.query = event.target.value;
+    this.subscriptions.push(this.characterService.getCharacters(this.query).subscribe(async (response: Character) => {
+      this.pagesAvailables = response.info.pages;
       this.characters = response.results;
     }));
-    //this.query = query;
 
+  }
+
+  /**
+   * Obtiene más información a medida que llega al final del scroll
+   */
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      this.page++;
+      if(this.page > this.pagesAvailables){
+        //No existen más páginas para mostrar!
+        return;
+      }
+      //Carga más información trayendo next page
+      this.subscriptions.push(this.characterService.getCharacters(this.query,this.page).subscribe(async (response: Character) => {
+        response.results.forEach(result => {
+          this.characters.push(result);
+        });
+      }));
+    }
   }
 }

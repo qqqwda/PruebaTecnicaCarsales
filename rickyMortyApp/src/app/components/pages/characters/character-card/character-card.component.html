@@ -1,8 +1,7 @@
-
-
-<div class="card center-block">
-    <img href="asd" src="{{item.image}}" alt="Avatar" style="width:100%">
+<div class="card">
+    <img src="{{item.image}}" alt="Avatar" style="width:100%">
     <div class="container">
       <h4><b>{{item.name}}</b></h4>
+      <button (click)="navigateToDetail(item.id)" class="button buttonBlue center">Details</button>
     </div>
 </div>

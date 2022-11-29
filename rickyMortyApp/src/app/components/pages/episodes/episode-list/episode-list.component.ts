@@ -1,7 +1,7 @@
 import { query } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Episode, EpisodeResult } from 'src/app/shared/models/Episode';
+import { EpisodeResult, Episode } from 'src/app/shared/models/Episode';
 import { EpisodeService } from 'src/app/shared/service/episode.service';
 
 @Component({

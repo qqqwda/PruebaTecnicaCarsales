@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Character } from '../models/Character';
+import { Character, CharacterResult } from '../models/Character';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,14 @@ export class CharacterService {
 
   getCharacters(query:String='', page:number=1):Observable<Character>{
     const filter = `${environment.baseUrlAPI}character/?name=${query}&page=${page}`;
-    console.log(filter);
     return this.http.get<Character>(filter);
   }
+
+  getCharacter(id:number):Observable<CharacterResult>{
+    const filter = `${environment.baseUrlAPI}character/${id}`;
+    return this.http.get<CharacterResult>(filter).pipe(catchError(err => of('error', err)));
+
+  }
+
 }
+
